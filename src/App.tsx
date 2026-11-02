@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react"
+import { Fragment, useEffect, useState, type ReactNode } from "react"
 import { AnimatePresence, MotionConfig, motion } from "framer-motion"
 import {
   Bot,
@@ -23,6 +23,43 @@ import {
   Users,
 } from "lucide-react"
 import ShaderHero from "@/components/ui/hero"
+import { content, type Content, type Job, type Lang } from "@/content"
+
+const EMAIL = "jean.elie.bargy@gmail.com"
+
+// Icônes, dans le même ordre que les listes de content.ts
+const TRAIT_ICONS = [<Ear size={20} />, <Users size={20} />, <Heart size={20} />]
+const DOMAIN_ICONS = [<Megaphone size={26} />, <Handshake size={26} />, <CalendarDays size={26} />]
+const CAP_ICONS = [
+  <Search size={22} />,
+  <Sparkles size={22} />,
+  <Bot size={22} />,
+  <ShieldCheck size={22} />,
+  <LayoutTemplate size={22} />,
+  <Plug size={22} />,
+]
+const TOOL_ICONS = [<FileSpreadsheet size={18} />, <Palette size={18} />, <MessagesSquare size={18} />]
+const LIFE_ICONS = [<Dumbbell size={18} />, <Music size={18} />, <ChefHat size={18} />]
+
+// "Qui *je suis*" -> "Qui " + <em>je suis</em>
+function em(text: string): ReactNode {
+  return text.split("*").map((part, i) => (i % 2 === 1 ? <em key={i}>{part}</em> : <Fragment key={i}>{part}</Fragment>))
+}
+
+// "texte **gras** texte" -> <strong>gras</strong>
+function bold(text: string): ReactNode {
+  return text.split("**").map((part, i) => (i % 2 === 1 ? <strong key={i}>{part}</strong> : <Fragment key={i}>{part}</Fragment>))
+}
+
+function initialLang(): Lang {
+  try {
+    const saved = localStorage.getItem("lang")
+    if (saved === "fr" || saved === "en") return saved
+  } catch {
+    // stockage indisponible : on ignore
+  }
+  return navigator.language?.toLowerCase().startsWith("fr") ? "fr" : "en"
+}
 
 // Apparition douce au défilement
 function Reveal({ children, delay = 0, className }: { children: ReactNode; delay?: number; className?: string }) {
@@ -39,171 +76,23 @@ function Reveal({ children, delay = 0, className }: { children: ReactNode; delay
   )
 }
 
-function Heading({ kicker, children, intro }: { kicker: string; children: ReactNode; intro?: string }) {
+function Heading({ kicker, title, intro }: { kicker: string; title: string; intro?: string }) {
   return (
     <Reveal>
       <span className="kicker">{kicker}</span>
-      <h2 className="title">{children}</h2>
+      <h2 className="title">{em(title)}</h2>
       {intro && <p className="intro">{intro}</p>}
     </Reveal>
   )
 }
 
-const NAV = [
-  { label: "Profil", href: "#profil" },
-  { label: "Parcours", href: "#parcours" },
-  { label: "Compétences", href: "#competences" },
-  { label: "IA", href: "#apport" },
-  { label: "Exemple", href: "#exemple" },
-]
-
-const KEYWORDS = ["Marketing", "Vente", "Événementiel", "Gestion de projet", "Coordination", "IA au service de l'humain"]
-
-type Job = {
-  company: string
-  initials: string
-  role: string
-  contract: string
-  period: string
-  place: string
-  points: string[]
-}
-
-const JOBS: Job[] = [
-  {
-    company: "LegalPlace",
-    initials: "LP",
-    role: "Conseiller en création d'entreprise",
-    contract: "CDI",
-    period: "Sept. 2025 – août 2026",
-    place: "Montpellier",
-    points: [
-      "Gestion de dossiers clients de bout en bout, de l'accueil à la finalisation, avec un suivi et une documentation structurés.",
-      "Coordination avec les clients et les équipes internes pour tenir chaque projet dans les délais.",
-      "Accueil et conseil des nouveaux clients, pour une expérience fluide et homogène.",
-      "Contribution à l'amélioration du discours commercial et de la clarté du message.",
-    ],
-  },
-  {
-    company: "Zirkonzahn Worldwide",
-    initials: "ZW",
-    role: "Spécialiste ventes, gestion de territoire",
-    contract: "CDI",
-    period: "Nov. 2023 – août 2025",
-    place: "Tyrol du Sud, Italie",
-    points: [
-      "Co-pilotage d'un territoire de 4 pays (France, Belgique, Luxembourg, Suisse) avec 2 partenaires locaux et une équipe terrain, pour une exécution de marque et une expérience client cohérentes.",
-      "Organisation d'événements clients et de formations, représentation de la marque sur des salons internationaux : planning, logistique, exécution sur place.",
-      "Point de contact entre ventes, marketing et support pour coordonner le déploiement de solutions techniques.",
-      "Négociation et suivi de contrats : engagements et échéances.",
-      "Relation avec plus de 100 clients B2B ; croissance visible du chiffre d'affaires grâce à une meilleure priorisation et coordination entre équipes.",
-      "Contribution à la stratégie du territoire avec la direction, et propositions d'amélioration de processus.",
-    ],
-  },
-  {
-    company: "Innocent Drinks",
-    initials: "ID",
-    role: "Animation des ventes",
-    contract: "Stage",
-    period: "Janv. – juin 2023",
-    place: "Paris",
-    points: [
-      "Coordination de la communication interne et de la documentation de la force de vente.",
-      "Suivi des nouveaux référencements et des ressources commerciales associées.",
-      "Analyse des écarts de fonctionnement et recommandations présentées à la direction.",
-    ],
-  },
-  {
-    company: "ClearCorrect · Straumann Group",
-    initials: "CC",
-    role: "Chef de projet junior, orthodontie",
-    contract: "Stage",
-    period: "Mars – août 2022",
-    place: "Paris",
-    points: [
-      "Pilotage de plusieurs projets transverses en parallèle, du cadrage à la mise en œuvre : visibilité de marque et appui aux ventes.",
-      "Conception d'outils et de supports de communication marketing.",
-      "Organisation de formations internes et gestion des réseaux sociaux de la marque.",
-      "Amélioration de la documentation et des outils des équipes terrain.",
-    ],
-  },
-]
-
-const DOMAINS = [
-  {
-    key: "Marketing",
-    icon: <Megaphone size={26} />,
-    lead: "Gagner du temps sur la préparation, garder la main sur le message.",
-    uses: [
-      "Briefs et plannings éditoriaux préparés plus vite",
-      "Synthèses d'études et de retours clients",
-      "Premières versions de contenus, relues et validées par l'humain",
-    ],
-  },
-  {
-    key: "Vente",
-    icon: <Handshake size={26} />,
-    lead: "Moins de saisie, plus de temps pour conseiller le client.",
-    uses: [
-      "Préparation des rendez-vous et des offres",
-      "Suivi structuré des prospects et des contrats",
-      "Moins de ressaisie entre les outils",
-    ],
-  },
-  {
-    key: "Événementiel",
-    icon: <CalendarDays size={26} />,
-    lead: "Un événement tient dans les détails : les suivre, sans s'y noyer.",
-    uses: [
-      "Rétroplannings, programmes et communications",
-      "Relances et retours des participants",
-      "Appuyé sur 5 à 6 événements majeurs déjà organisés",
-    ],
-  },
-]
-
-const CAPABILITIES = [
-  { icon: <Search size={22} />, title: "Auditer un processus", text: "Cartographier les étapes, repérer les frictions, comparer les options avant de proposer de l'IA, et chiffrer une cible." },
-  { icon: <Sparkles size={22} />, title: "Créer des skills", text: "Transformer une façon de travailler en instructions réutilisables que Claude applique à la demande." },
-  { icon: <Bot size={22} />, title: "Créer des agents", text: "Concevoir un assistant spécialisé, comme un relecteur critique en lecture seule, et vérifier qu'il est utile." },
-  { icon: <ShieldCheck size={22} />, title: "Relire et challenger", text: "Faire critiquer un livrable pour corriger les affirmations trop fortes et distinguer mesures et estimations." },
-  { icon: <LayoutTemplate size={22} />, title: "Construire un site", text: "Passer d'une idée à un site présentable, avec un contexte clair et des règles de publication : celui-ci en est la preuve." },
-  { icon: <Plug size={22} />, title: "Connecter ses outils", text: "Relier Claude à ses documents (Google, Notion) en lecture seule, pour garder le contrôle des données." },
-]
-
-const STEPS = [
-  ["Observer", "Comprendre comment le travail se fait réellement."],
-  ["Mesurer", "Chiffrer temps et erreurs, en distinguant mesures et estimations."],
-  ["Proposer", "Présenter des options, leurs risques et une cible chiffrée."],
-  ["Valider", "Tester sur un pilote avec les équipes. L'humain valide toujours."],
-]
-
-const LANGUAGES = [
-  { name: "Français", level: "Natif", score: 5 },
-  { name: "Anglais", level: "Courant", score: 4 },
-  { name: "Italien", level: "Intermédiaire", score: 3 },
-  { name: "Espagnol", level: "Notions", score: 2 },
-]
-
-const STUDIES = [
-  { years: "2021 – 2023", title: "Master Management et développement commercial", school: "Montpellier Management", text: "Stratégie d'entreprise, développement de marchés, gestion opérationnelle." },
-  { years: "2020 – 2021", title: "Licence Management stratégique", school: "Montpellier Management", text: "Analyse stratégique, traitement de données, gestion financière." },
-  { years: "2018 – 2020", title: "Classe préparatoire CPGE", school: "Lycée Jean-Mermoz · ENS Paris-Saclay D2", text: "Économie, finance, mathématiques appliquées." },
-]
-
-const TOOLS = [
-  { icon: <FileSpreadsheet size={18} />, group: "Bureautique", items: ["Excel", "PowerPoint", "Word"] },
-  { icon: <Palette size={18} />, group: "Création", items: ["Photoshop", "InDesign", "Premiere Pro"] },
-  { icon: <MessagesSquare size={18} />, group: "Collaboration", items: ["Trello", "Notion", "Slack"] },
-]
-
-function Journey() {
+function Journey({ jobs, tablist }: { jobs: Job[]; tablist: string }) {
   const [active, setActive] = useState(0)
-  const job = JOBS[active]
+  const job = jobs[active] ?? jobs[0]
   return (
     <div className="tl">
-      <div className="tl-tabs" role="tablist" aria-label="Expériences professionnelles">
-        {JOBS.map((j, i) => (
+      <div className="tl-tabs" role="tablist" aria-label={tablist}>
+        {jobs.map((j, i) => (
           <button
             key={j.company}
             role="tab"
@@ -222,7 +111,7 @@ function Journey() {
 
       <AnimatePresence mode="wait">
         <motion.article
-          key={job.company}
+          key={job.company + job.role}
           className="tl-panel"
           role="tabpanel"
           initial={{ opacity: 0, x: 24 }}
@@ -248,13 +137,13 @@ function Journey() {
   )
 }
 
-function Domains() {
+function Domains({ domains, tablist }: { domains: Content["ai"]["domains"]; tablist: string }) {
   const [active, setActive] = useState(0)
-  const d = DOMAINS[active]
+  const d = domains[active] ?? domains[0]
   return (
     <div className="dom">
-      <div className="dom-tabs" role="tablist" aria-label="Domaines">
-        {DOMAINS.map((x, i) => (
+      <div className="dom-tabs" role="tablist" aria-label={tablist}>
+        {domains.map((x, i) => (
           <button
             key={x.key}
             role="tab"
@@ -276,7 +165,7 @@ function Domains() {
           exit={{ opacity: 0, y: -14 }}
           transition={{ duration: 0.25 }}
         >
-          <div className="dom-icon" aria-hidden="true">{d.icon}</div>
+          <div className="dom-icon" aria-hidden="true">{DOMAIN_ICONS[active]}</div>
           <div>
             <p className="dom-lead">{d.lead}</p>
             <ul>
@@ -292,84 +181,98 @@ function Domains() {
 }
 
 export default function App() {
+  const [lang, setLang] = useState<Lang>(initialLang)
+  const t = content[lang]
+
+  // Langue de la page, titre de l'onglet et description suivent le choix
+  useEffect(() => {
+    document.documentElement.lang = t.htmlLang
+    document.title = t.docTitle
+    document.querySelector('meta[name="description"]')?.setAttribute("content", t.docDescription)
+    try {
+      localStorage.setItem("lang", lang)
+    } catch {
+      // stockage indisponible : on ignore
+    }
+  }, [lang, t])
+
   return (
     <MotionConfig reducedMotion="user">
       <ShaderHero
         brand="Jean-Elie"
-        nav={NAV}
+        nav={t.nav}
         contactHref="#contact"
-        contactLabel="Contact"
-        badge="Marketing · Vente · Événementiel"
-        titleTop="Chef de projet"
-        titleMain="avec l'IA"
-        titleBottom="en renfort"
-        description="Trois ans de coordination de projets clients et de marque sur des marchés internationaux, et une dimension IA pour que les équipes gagnent du temps pour l'humain."
-        primary={{ label: "Voir mon parcours", href: "#parcours" }}
-        secondary={{ label: "Ce que j'apporte", href: "#apport" }}
-        badgeRingText="Marketing • Vente • Événementiel • IA • Marketing • Vente • "
+        contactLabel={t.contactLabel}
+        badge={t.hero.badge}
+        titleTop={t.hero.titleTop}
+        titleMain={t.hero.titleMain}
+        titleBottom={t.hero.titleBottom}
+        description={t.hero.description}
+        primary={{ label: t.hero.primary, href: "#parcours" }}
+        secondary={{ label: t.hero.secondary, href: "#apport" }}
+        badgeRingText={t.hero.ring}
+        lang={lang}
+        onLangChange={setLang}
+        langAria={t.langAria}
       />
 
       <div className="marquee" aria-hidden="true">
         <div className="marquee-track">
-          {[...KEYWORDS, ...KEYWORDS, ...KEYWORDS, ...KEYWORDS].map((word, i) => (
+          {[...t.keywords, ...t.keywords, ...t.keywords, ...t.keywords].map((word, i) => (
             <span key={i}>{word}</span>
           ))}
         </div>
       </div>
 
       <main>
-        {/* PROFIL : deux colonnes, texte à gauche, chiffres à droite */}
+        {/* PROFIL */}
         <section id="profil" className="band">
           <div className="inner">
-            <Heading kicker="Profil">Qui <em>je suis</em></Heading>
+            <Heading kicker={t.profile.kicker} title={t.profile.title} />
             <div className="profile">
               <Reveal>
-                <p className="profile-text">
-                  Je coordonne des projets clients et de marque, de leur cadrage à leur exécution sur place, en
-                  France, Belgique, Luxembourg et Suisse. Basé à Montpellier, je suis <strong>à la recherche d'un poste
-                  salarié</strong> de chef de projet marketing, vente ou événementiel.
-                </p>
+                <p className="profile-text">{bold(t.profile.text)}</p>
                 <ul className="traits">
-                  <li><Ear size={20} /><span><strong>Écoute et confiance.</strong> Des relations transparentes et profondes, rapidement.</span></li>
-                  <li><Users size={20} /><span><strong>Organiser et coordonner.</strong> Plusieurs projets et interlocuteurs en parallèle, en leader comme en équipier.</span></li>
-                  <li><Heart size={20} /><span><strong>Créer de bons moments.</strong> Faire en sorte que chacun se sente vu et bien.</span></li>
+                  {t.profile.traits.map((tr, i) => (
+                    <li key={tr.title}>
+                      {TRAIT_ICONS[i]}
+                      <span><strong>{tr.title}</strong> {tr.text}</span>
+                    </li>
+                  ))}
                 </ul>
               </Reveal>
               <Reveal delay={0.1}>
                 <div className="figures">
-                  <div><strong>3 ans</strong><span>de coordination de projets clients et de marque</span></div>
-                  <div><strong>4 pays</strong><span>de territoire co-piloté</span></div>
-                  <div><strong>100+</strong><span>clients B2B accompagnés</span></div>
-                  <div><strong>5 à 6</strong><span>événements majeurs organisés</span></div>
+                  {t.profile.figures.map((f) => (
+                    <div key={f.value}><strong>{f.value}</strong><span>{f.label}</span></div>
+                  ))}
                 </div>
               </Reveal>
             </div>
           </div>
         </section>
 
-        {/* PARCOURS : CV interactif */}
+        {/* PARCOURS */}
         <section id="parcours" className="band alt">
           <div className="blob" style={{ top: -120, left: -100 }} />
           <div className="inner">
-            <Heading kicker="Parcours" intro="Cliquez sur une entreprise pour voir ce que j'y ai fait.">
-              Mon <em>parcours</em>
-            </Heading>
+            <Heading kicker={t.journey.kicker} title={t.journey.title} intro={t.journey.intro} />
             <Reveal delay={0.1}>
-              <Journey />
+              <Journey jobs={t.journey.jobs} tablist={t.journey.tablist} />
             </Reveal>
           </div>
         </section>
 
-        {/* COMPÉTENCES : bento */}
+        {/* COMPÉTENCES */}
         <section id="competences" className="band">
           <div className="inner">
-            <Heading kicker="Compétences">Formation, langues <em>et outils</em></Heading>
+            <Heading kicker={t.skills.kicker} title={t.skills.title} />
             <div className="bento">
               <Reveal className="bento-study">
                 <div className="bento-card">
-                  <h3><GraduationCap size={20} /> Formation</h3>
+                  <h3><GraduationCap size={20} /> {t.skills.studiesTitle}</h3>
                   <ol className="studies">
-                    {STUDIES.map((s) => (
+                    {t.skills.studies.map((s) => (
                       <li key={s.title}>
                         <span className="years">{s.years}</span>
                         <strong>{s.title}</strong>
@@ -383,9 +286,9 @@ export default function App() {
 
               <Reveal className="bento-lang" delay={0.08}>
                 <div className="bento-card">
-                  <h3>Langues</h3>
+                  <h3>{t.skills.languagesTitle}</h3>
                   <ul className="langs">
-                    {LANGUAGES.map((l) => (
+                    {t.skills.languages.map((l) => (
                       <li key={l.name}>
                         <div className="lang-top"><strong>{l.name}</strong><span>{l.level}</span></div>
                         <div className="lang-bar" aria-hidden="true">
@@ -401,12 +304,12 @@ export default function App() {
 
               <Reveal className="bento-tools" delay={0.16}>
                 <div className="bento-card">
-                  <h3>Outils</h3>
-                  {TOOLS.map((t) => (
-                    <div className="tool-group" key={t.group}>
-                      <span className="tool-title">{t.icon}{t.group}</span>
+                  <h3>{t.skills.toolsTitle}</h3>
+                  {t.skills.tools.map((tool, i) => (
+                    <div className="tool-group" key={tool.group}>
+                      <span className="tool-title">{TOOL_ICONS[i]}{tool.group}</span>
                       <div className="chips">
-                        {t.items.map((i) => <span className="chip" key={i}>{i}</span>)}
+                        {tool.items.map((item) => <span className="chip" key={item}>{item}</span>)}
                       </div>
                     </div>
                   ))}
@@ -415,9 +318,9 @@ export default function App() {
 
               <Reveal className="bento-life" delay={0.24}>
                 <div className="bento-card life">
-                  <span><Dumbbell size={18} /> Course, basket, escalade, cyclisme, rugby</span>
-                  <span><Music size={18} /> Jazz, rap, rock, gospel</span>
-                  <span><ChefHat size={18} /> Cuisine</span>
+                  {t.skills.life.map((text, i) => (
+                    <span key={text}>{LIFE_ICONS[i]} {text}</span>
+                  ))}
                 </div>
               </Reveal>
             </div>
@@ -428,73 +331,57 @@ export default function App() {
         <section id="apport" className="band dark">
           <div className="blob" style={{ top: -120, right: -100, background: "var(--olive-bright)" }} />
           <div className="inner">
-            <Heading
-              kicker="L'IA, mon plus"
-              intro="Je ne remplace pas le chef de projet : j'ajoute un appui IA sur le répétitif, pour se concentrer sur la relation, les arbitrages et les décisions."
-            >
-              Ce que j'apporte à <em>une équipe projet</em>
-            </Heading>
+            <Heading kicker={t.ai.kicker} title={t.ai.title} intro={t.ai.intro} />
             <Reveal delay={0.1}>
-              <Domains />
+              <Domains domains={t.ai.domains} tablist={t.ai.tablist} />
             </Reveal>
           </div>
         </section>
 
-        {/* CLAUDE : liste numérotée sobre */}
+        {/* CLAUDE */}
         <section id="claude" className="band">
           <div className="inner">
-            <Heading kicker="Avec Claude" intro="Des capacités déjà mises en pratique, pas des promesses.">
-              Ce que je sais <em>déjà faire</em>
-            </Heading>
+            <Heading kicker={t.claude.kicker} title={t.claude.title} intro={t.claude.intro} />
             <div className="caps">
-              {CAPABILITIES.map((c, i) => (
+              {t.claude.caps.map((c, i) => (
                 <Reveal key={c.title} delay={(i % 2) * 0.08}>
                   <article className="cap">
                     <span className="caps-num">{String(i + 1).padStart(2, "0")}</span>
                     <div>
-                      <h3>{c.icon}{c.title}</h3>
+                      <h3>{CAP_ICONS[i]}{c.title}</h3>
                       <p>{c.text}</p>
                     </div>
                   </article>
                 </Reveal>
               ))}
             </div>
-            <Reveal><p className="note">À venir : automatiser une tâche récurrente avec une routine planifiée.</p></Reveal>
+            <Reveal><p className="note">{t.claude.soon}</p></Reveal>
           </div>
         </section>
 
-        {/* POURQUOI : citation */}
+        {/* POURQUOI */}
         <section id="pourquoi" className="band alt">
           <div className="blob" style={{ bottom: -140, left: "30%" }} />
           <div className="inner">
-            <Heading kicker="Pourquoi l'IA">Pourquoi je m'y suis <em>mis</em></Heading>
+            <Heading kicker={t.why.kicker} title={t.why.title} />
             <div className="why">
               <Reveal>
-                <blockquote>Redonner du temps à l'humain.</blockquote>
+                <blockquote>{t.why.quote}</blockquote>
               </Reveal>
               <Reveal delay={0.1}>
-                <p>
-                  Dans la vente, mes qualités relationnelles se sont retrouvées transformées en objectifs chiffrés sous
-                  pression. J'y ai perdu l'envie de m'intéresser aux gens, alors que c'est ce que je fais de mieux.
-                </p>
-                <p>
-                  J'ai aussi vu où passe le temps d'une équipe : noter, retrouver une référence, ressaisir la même
-                  information. L'IA est pour moi un moyen de reprendre ce temps, pour se concentrer sur l'empathie et les
-                  tâches qui ont du sens. Je ne viens pas de la technique : j'apprends en construisant, avec Claude.
-                </p>
+                <p>{t.why.p1}</p>
+                <p>{t.why.p2}</p>
               </Reveal>
             </div>
           </div>
         </section>
 
-        {/* MÉTHODE : étapes reliées */}
+        {/* MÉTHODE */}
         <section id="demarche" className="band">
           <div className="inner">
-            <Heading kicker="Méthode" intro="Ce n'est pas la seule, mais c'est celle que j'aime appliquer.">
-              Une méthode <em>que j'apprécie</em>
-            </Heading>
+            <Heading kicker={t.method.kicker} title={t.method.title} intro={t.method.intro} />
             <ol className="flow">
-              {STEPS.map(([title, text], i) => (
+              {t.method.steps.map(([title, text], i) => (
                 <motion.li
                   key={title}
                   initial={{ opacity: 0, y: 28 }}
@@ -511,55 +398,46 @@ export default function App() {
           </div>
         </section>
 
-        {/* EXEMPLE : feuille de document */}
+        {/* EXEMPLE */}
         <section id="exemple" className="band alt">
           <div className="blob" style={{ top: -120, right: -80 }} />
           <div className="inner">
-            <Heading kicker="Exemple">Un exemple <em>de livrable</em></Heading>
+            <Heading kicker={t.example.kicker} title={t.example.title} />
             <Reveal delay={0.1}>
               <div className="sheet">
                 <div className="sheet-head">
-                  <span className="sheet-badge">Exemple</span>
-                  <h3>Audit de la prise de commande par téléphone</h3>
-                  <p>
-                    Un exercice réalisé avec Claude pour illustrer ma façon de travailler : processus actuel, hypothèse,
-                    alternatives comparées, risques (dont la protection des données) et pilote proposé.
-                  </p>
+                  <span className="sheet-badge">{t.example.badge}</span>
+                  <h3>{t.example.headline}</h3>
+                  <p>{t.example.text}</p>
                 </div>
                 <div className="sheet-metrics">
-                  <div><strong>~60</strong><span>appels par jour (estimation)</span></div>
-                  <div><strong>30 → 10 min</strong><span>cible de saisie par commande (à valider)</span></div>
-                  <div><strong>4</strong><span>options comparées avant de choisir l'IA</span></div>
+                  {t.example.metrics.map((m) => (
+                    <div key={m.value}><strong>{m.value}</strong><span>{m.label}</span></div>
+                  ))}
                 </div>
-                <p className="note">
-                  Chiffres issus de souvenirs : ce sont des estimations, à remplacer par des mesures réelles. Version
-                  complète à venir.
-                </p>
+                <p className="note">{t.example.note}</p>
               </div>
             </Reveal>
           </div>
         </section>
 
-        {/* CONTACT : candidat salarié */}
+        {/* CONTACT */}
         <section id="contact" className="band dark contact">
           <div className="blob" style={{ bottom: -160, right: "30%", background: "var(--sand)" }} />
           <div className="inner">
             <Reveal>
-              <span className="kicker">Contact</span>
-              <h2 className="title">Envie d'<em>échanger</em> ?</h2>
-              <p className="intro">
-                Je cherche à rejoindre une équipe comme chef de projet en marketing, vente ou événementiel, avec l'IA
-                comme atout.
-              </p>
-              <a className="mail-btn" href="mailto:jean.elie.bargy@gmail.com">
-                <Mail size={20} /> jean.elie.bargy@gmail.com
+              <span className="kicker">{t.contact.kicker}</span>
+              <h2 className="title">{em(t.contact.title)}</h2>
+              <p className="intro">{t.contact.text}</p>
+              <a className="mail-btn" href={`mailto:${EMAIL}`}>
+                <Mail size={20} /> {EMAIL}
               </a>
             </Reveal>
           </div>
         </section>
       </main>
 
-      <footer>Jean-Elie · Portfolio en construction · 2026</footer>
+      <footer>{t.footer}</footer>
     </MotionConfig>
   )
 }
