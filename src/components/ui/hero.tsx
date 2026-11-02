@@ -131,8 +131,8 @@ export default function ShaderHero({
               type="button"
               onClick={() => onLangChange(code)}
               aria-pressed={lang === code}
-              className={`rounded-full px-3 py-1.5 font-semibold uppercase transition-colors duration-200 ${
-                lang === code ? "bg-[#c9b26b] text-[#141a10]" : "text-white/80 hover:text-white"
+              className={`cursor-pointer rounded-full px-3.5 py-2 font-semibold uppercase transition-colors duration-200 ${
+                lang === code ? "bg-[#c9b26b] text-[#141a10]" : "text-white hover:bg-white/15"
               }`}
             >
               {code}
@@ -232,7 +232,7 @@ export default function ShaderHero({
         </div>
       </div>
 
-      <div className="absolute bottom-8 right-8 z-30 hidden md:block" aria-hidden="true">
+      <div className="absolute bottom-20 right-8 z-30 hidden md:block" aria-hidden="true">
         <div className="relative flex h-20 w-20 items-center justify-center">
           <PulsingBorder
             colors={RING}
