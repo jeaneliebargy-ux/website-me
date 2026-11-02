@@ -19,6 +19,9 @@ type ShaderHeroProps = {
   primary: NavItem
   secondary: NavItem
   badgeRingText: string
+  lang: "fr" | "en"
+  onLangChange: (lang: "fr" | "en") => void
+  langAria: string
 }
 
 // Palette kaki du site : vert forêt, olive, sable
@@ -40,6 +43,9 @@ export default function ShaderHero({
   primary,
   secondary,
   badgeRingText,
+  lang,
+  onLangChange,
+  langAria,
 }: ShaderHeroProps) {
   const reduceMotion = useReducedMotion()
   const [scrolled, setScrolled] = useState(false)
@@ -113,6 +119,27 @@ export default function ShaderHero({
           ))}
         </nav>
 
+        <div className="ml-auto flex items-center gap-3">
+        <div
+          role="group"
+          aria-label={langAria}
+          className="flex items-center rounded-full border border-white/25 bg-white/5 p-0.5 text-xs backdrop-blur-sm"
+        >
+          {(["fr", "en"] as const).map((code) => (
+            <button
+              key={code}
+              type="button"
+              onClick={() => onLangChange(code)}
+              aria-pressed={lang === code}
+              className={`rounded-full px-3 py-1.5 font-semibold uppercase transition-colors duration-200 ${
+                lang === code ? "bg-[#c9b26b] text-[#141a10]" : "text-white/80 hover:text-white"
+              }`}
+            >
+              {code}
+            </button>
+          ))}
+        </div>
+
         <div className="group relative flex items-center" style={{ filter: "url(#gooey-filter)" }}>
           <a
             href={contactHref}
@@ -129,9 +156,10 @@ export default function ShaderHero({
             {contactLabel}
           </a>
         </div>
+        </div>
       </header>
 
-      <main className="relative z-20 mt-auto px-4 pb-12 pt-32 md:px-8 md:pb-16">
+      <div className="relative z-20 mt-auto px-4 pb-12 pt-32 md:px-8 md:pb-16">
         <div className="max-w-2xl text-left">
           <motion.div
             className="relative mb-6 inline-flex items-center rounded-full border border-white/15 bg-white/5 px-4 py-2 backdrop-blur-sm"
@@ -202,7 +230,7 @@ export default function ShaderHero({
             </motion.a>
           </motion.div>
         </div>
-      </main>
+      </div>
 
       <div className="absolute bottom-8 right-8 z-30 hidden md:block" aria-hidden="true">
         <div className="relative flex h-20 w-20 items-center justify-center">
