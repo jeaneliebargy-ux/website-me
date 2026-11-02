@@ -30,7 +30,7 @@ export type Content = {
     secondary: string
     ring: string
   }
-  keywords: string[]
+  glance: { title: string; text: string }[]
   profile: {
     kicker: string
     title: string
@@ -98,7 +98,12 @@ const fr: Content = {
     secondary: "Ce que j'apporte",
     ring: "Marketing • Vente • Événementiel • IA • Marketing • Vente • ",
   },
-  keywords: ["Marketing", "Vente", "Événementiel", "Gestion de projet", "Coordination", "IA au service de l'humain"],
+  glance: [
+    { title: "Marketing", text: "Briefs, contenus, plannings éditoriaux" },
+    { title: "Vente", text: "Suivi clients, offres et contrats" },
+    { title: "Événementiel", text: "Salons, formations, logistique" },
+    { title: "IA en renfort", text: "Gagner du temps, garder l'humain" },
+  ],
   profile: {
     kicker: "Profil",
     title: "Qui *je suis*",
@@ -249,7 +254,7 @@ const fr: Content = {
       { title: "Créer des skills", text: "Transformer une façon de travailler en instructions réutilisables que Claude applique à la demande." },
       { title: "Créer des agents", text: "Concevoir un assistant spécialisé, comme un relecteur critique en lecture seule, et vérifier qu'il est utile." },
       { title: "Relire et challenger", text: "Faire critiquer un livrable pour corriger les affirmations trop fortes et distinguer mesures et estimations." },
-      { title: "Construire un site", text: "Passer d'une idée à un site présentable, avec un contexte clair et des règles de publication : celui-ci en est la preuve." },
+      { title: "Construire un site", text: "Passer d'une idée à un site présentable, comme celui-ci, avec un contexte de projet clair et des règles de publication." },
       { title: "Connecter ses outils", text: "Relier Claude à ses documents (Google, Notion) en lecture seule, pour garder le contrôle des données." },
     ],
     soon: "À venir : automatiser une tâche récurrente avec une routine planifiée.",
@@ -283,7 +288,7 @@ const fr: Content = {
       { value: "30 → 10 min", label: "cible de saisie par commande (à valider)" },
       { value: "4", label: "options comparées avant de choisir l'IA" },
     ],
-    note: "Chiffres issus de souvenirs : ce sont des estimations, à remplacer par des mesures réelles. Version complète à venir.",
+    note: "Ordres de grandeur d'un cas d'étude, à confirmer par des mesures. Version complète à venir.",
   },
   contact: {
     kicker: "Contact",
@@ -318,7 +323,12 @@ const en: Content = {
     secondary: "What I bring",
     ring: "Marketing • Sales • Events • AI • Marketing • Sales • ",
   },
-  keywords: ["Marketing", "Sales", "Events", "Project management", "Coordination", "AI serving people"],
+  glance: [
+    { title: "Marketing", text: "Briefs, content, editorial planning" },
+    { title: "Sales", text: "Client follow-up, offers and contracts" },
+    { title: "Events", text: "Trade shows, training, logistics" },
+    { title: "AI in support", text: "Save time, keep the human touch" },
+  ],
   profile: {
     kicker: "Profile",
     title: "Who *I am*",
@@ -469,7 +479,7 @@ const en: Content = {
       { title: "Create skills", text: "Turn a way of working into reusable instructions that Claude applies on demand." },
       { title: "Create agents", text: "Design a specialised assistant, such as a read-only critical reviewer, and check that it is useful." },
       { title: "Review and challenge", text: "Have a deliverable critiqued to correct overstated claims and separate measurements from estimates." },
-      { title: "Build a website", text: "Go from an idea to a presentable site, with a clear context and publishing rules: this one is the proof." },
+      { title: "Build a website", text: "Go from an idea to a presentable site, like this one, with a clear project context and publishing rules." },
       { title: "Connect tools", text: "Link Claude to documents (Google, Notion) in read-only mode, to keep control of the data." },
     ],
     soon: "Coming next: automating a recurring task with a scheduled routine.",
@@ -503,7 +513,7 @@ const en: Content = {
       { value: "30 → 10 min", label: "target data-entry time per order (to be validated)" },
       { value: "4", label: "options compared before choosing AI" },
     ],
-    note: "Figures come from memory: they are estimates, to be replaced by real measurements. Full version coming soon.",
+    note: "Orders of magnitude from a case study, to be confirmed by measurements. Full version coming soon.",
   },
   contact: {
     kicker: "Contact",

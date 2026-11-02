@@ -38,6 +38,7 @@ const CAP_ICONS = [
   <LayoutTemplate size={22} />,
   <Plug size={22} />,
 ]
+const GLANCE_ICONS = [<Megaphone size={22} />, <Handshake size={22} />, <CalendarDays size={22} />, <Sparkles size={22} />]
 const TOOL_ICONS = [<FileSpreadsheet size={18} />, <Palette size={18} />, <MessagesSquare size={18} />]
 const LIFE_ICONS = [<Dumbbell size={18} />, <Music size={18} />, <ChefHat size={18} />]
 
@@ -216,12 +217,18 @@ export default function App() {
         langAria={t.langAria}
       />
 
-      <div className="marquee" aria-hidden="true">
-        <div className="marquee-track">
-          {[...t.keywords, ...t.keywords, ...t.keywords, ...t.keywords].map((word, i) => (
-            <span key={i}>{word}</span>
-          ))}
-        </div>
+      <div className="glance">
+        {t.glance.map((g, i) => (
+          <Reveal key={g.title} delay={i * 0.08}>
+            <div className="glance-card">
+              <span className="glance-icon" aria-hidden="true">{GLANCE_ICONS[i]}</span>
+              <div>
+                <strong>{g.title}</strong>
+                <span>{g.text}</span>
+              </div>
+            </div>
+          </Reveal>
+        ))}
       </div>
 
       <main>

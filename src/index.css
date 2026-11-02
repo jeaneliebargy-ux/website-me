@@ -39,22 +39,48 @@ body {
 
 section[id] { scroll-margin-top: 64px; }
 
-button { font: inherit; color: inherit; cursor: pointer; }
+button { font: inherit; cursor: pointer; }
 
-/* Bandeau défilant sous le hero */
-.marquee {
-  overflow: hidden;
-  background: linear-gradient(90deg, var(--olive), var(--olive-bright), var(--sand));
-  color: var(--forest);
-  padding: 14px 0;
-  font-weight: 600;
-  letter-spacing: 0.04em;
+/* Cartes flottantes sous le hero : les 4 axes en un coup d'œil */
+.glance {
+  position: relative;
+  z-index: 5;
+  max-width: 1040px;
+  margin: -44px auto 0;
+  padding: 0 16px;
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
 
-.marquee-track { display: flex; width: max-content; gap: 40px; animation: scroll-x 30s linear infinite; }
-.marquee-track span::after { content: "✦"; margin-left: 40px; opacity: 0.6; }
+.glance-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 100%;
+  padding: 18px 20px;
+  border-radius: 18px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: 0 14px 30px rgba(20, 26, 16, 0.18);
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
 
-@keyframes scroll-x { to { transform: translateX(-50%); } }
+.glance-card:hover { transform: translateY(-4px); border-color: var(--olive-bright); }
+
+.glance-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--olive-bright), var(--sand));
+  color: var(--forest);
+}
+
+.glance-card strong { display: block; line-height: 1.25; }
+.glance-card span:not(.glance-icon) { color: var(--muted); font-size: 0.88rem; line-height: 1.4; display: block; }
 
 /* Sections */
 .band { padding: 88px 16px; position: relative; overflow: hidden; }
@@ -439,6 +465,5 @@ footer { padding: 28px 16px; text-align: center; font-size: 0.9rem; background: 
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .marquee-track { animation: none; }
-  .tl-tab, .tl-dot, .chip, .dom-tab { transition: none; }
+  .tl-tab, .tl-dot, .chip, .dom-tab, .glance-card { transition: none; }
 }
