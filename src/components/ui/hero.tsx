@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react"
 import { MeshGradient } from "@paper-design/shaders-react"
 import { motion, useReducedMotion } from "framer-motion"
-import { ArrowUpRight } from "lucide-react"
+import { ArrowUpRight, Menu, X } from "lucide-react"
 
 type NavItem = { label: string; href: string }
 
@@ -21,6 +21,7 @@ type ShaderHeroProps = {
   lang: "fr" | "en"
   onLangChange: (lang: "fr" | "en") => void
   langAria: string
+  menuAria: string
 }
 
 // Palette kaki du site : vert forêt, olive, sable
@@ -43,9 +44,11 @@ export default function ShaderHero({
   lang,
   onLangChange,
   langAria,
+  menuAria,
 }: ShaderHeroProps) {
   const reduceMotion = useReducedMotion()
   const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -97,7 +100,7 @@ export default function ShaderHero({
 
       <header
         className={`fixed inset-x-0 top-0 z-50 flex items-center justify-between gap-4 px-4 py-4 transition-all duration-300 md:px-8 ${
-          scrolled ? "bg-[#141a10]/90 py-3 shadow-lg shadow-black/30 backdrop-blur" : ""
+          scrolled || menuOpen ? "bg-[#141a10]/90 py-3 shadow-lg shadow-black/30 backdrop-blur" : ""
         }`}
       >
         <a href="#accueil" className="text-lg font-bold tracking-tight text-white">
@@ -137,7 +140,7 @@ export default function ShaderHero({
           ))}
         </div>
 
-        <div className="group relative flex items-center" style={{ filter: "url(#gooey-filter)" }}>
+        <div className="group relative hidden items-center sm:flex" style={{ filter: "url(#gooey-filter)" }}>
           <a
             href={contactHref}
             aria-hidden="true"
@@ -153,11 +156,41 @@ export default function ShaderHero({
             {contactLabel}
           </a>
         </div>
+
+        <button
+          type="button"
+          onClick={() => setMenuOpen((open) => !open)}
+          aria-label={menuAria}
+          aria-expanded={menuOpen}
+          aria-controls="menu-mobile"
+          className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-white/25 text-white transition-colors hover:bg-white/15 lg:hidden"
+        >
+          {menuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+        </button>
         </div>
+
+        {menuOpen && (
+          <nav
+            id="menu-mobile"
+            aria-label="Navigation principale"
+            className="absolute inset-x-0 top-full flex flex-col gap-1 border-t border-white/10 bg-[#141a10]/95 px-4 py-3 backdrop-blur lg:hidden"
+          >
+            {[...nav, { label: contactLabel, href: contactHref }].map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={() => setMenuOpen(false)}
+                className="rounded-xl px-3 py-3 text-base text-white/90 transition-colors hover:bg-white/10"
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
+        )}
       </header>
 
       <div className="relative z-20 mt-auto px-4 pb-12 pt-32 md:px-8 md:pb-16">
-        <div className="max-w-2xl text-left">
+        <div className="max-w-3xl text-left">
           <motion.div
             className="relative mb-6 inline-flex items-center rounded-full border border-white/15 bg-white/5 px-4 py-2 backdrop-blur-sm"
             style={{ filter: "url(#glass-effect)" }}
