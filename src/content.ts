@@ -315,8 +315,8 @@ const en: Content = {
   contactLabel: "Contact",
   hero: {
     badge: "Trade shows · Training · Client events",
-    titleTop: "Project manager",
-    titleMain: "events",
+    titleTop: "Event",
+    titleMain: "project manager",
     titleBottom: "with AI in support",
     description:
       "International trade shows, training and client events: three years coordinating projects, from scoping to on-site execution, with a marketing and sales background.",
