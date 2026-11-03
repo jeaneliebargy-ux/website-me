@@ -1,0 +1,10 @@
+node_modules
+dist
+.env
+.env.*
+*.local
+
+# Notes de travail avec Claude : restent sur ton ordinateur, pas dans le dépôt public
+CLAUDE.md
+.claude/
+archive-site-statique/
