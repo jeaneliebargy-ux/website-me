@@ -1,6 +1,6 @@
 "use client"
 import { useEffect, useState } from "react"
-import { MeshGradient, PulsingBorder } from "@paper-design/shaders-react"
+import { MeshGradient } from "@paper-design/shaders-react"
 import { motion, useReducedMotion } from "framer-motion"
 import { ArrowUpRight } from "lucide-react"
 
@@ -18,7 +18,6 @@ type ShaderHeroProps = {
   description: string
   primary: NavItem
   secondary: NavItem
-  badgeRingText: string
   lang: "fr" | "en"
   onLangChange: (lang: "fr" | "en") => void
   langAria: string
@@ -28,7 +27,6 @@ type ShaderHeroProps = {
 const FOREST = "#141a10"
 const MESH_MAIN = [FOREST, "#5a6b2e", "#7f9440", "#2e3a22", "#b9c47c"]
 const MESH_LIGHT = [FOREST, "#f3f2e6", "#7f9440", "#c9b26b"]
-const RING = ["#b9c47c", "#7f9440", "#5a6b2e", "#c9b26b", "#f3f2e6"]
 
 export default function ShaderHero({
   brand,
@@ -42,7 +40,6 @@ export default function ShaderHero({
   description,
   primary,
   secondary,
-  badgeRingText,
   lang,
   onLangChange,
   langAria,
@@ -229,45 +226,6 @@ export default function ShaderHero({
               {primary.label}
             </motion.a>
           </motion.div>
-        </div>
-      </div>
-
-      <div className="absolute bottom-20 right-8 z-30 hidden md:block" aria-hidden="true">
-        <div className="relative flex h-20 w-20 items-center justify-center">
-          <PulsingBorder
-            colors={RING}
-            colorBack="#00000000"
-            speed={reduceMotion ? 0 : 1.5}
-            roundness={1}
-            thickness={0.1}
-            softness={0.2}
-            intensity={5}
-            spots={5}
-            spotSize={0.1}
-            pulse={0.1}
-            smoke={0.5}
-            smokeSize={4}
-            scale={0.65}
-            rotation={0}
-            style={{ width: "60px", height: "60px", borderRadius: "50%" }}
-          />
-
-          <motion.svg
-            className="absolute inset-0 h-full w-full"
-            viewBox="0 0 100 100"
-            animate={reduceMotion ? undefined : { rotate: 360 }}
-            transition={{ duration: 20, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
-            style={{ transform: "scale(1.6)" }}
-          >
-            <defs>
-              <path id="ring-text-path" d="M 50, 50 m -38, 0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0" />
-            </defs>
-            <text className="fill-white/80 text-[9px] font-medium">
-              <textPath href="#ring-text-path" startOffset="0%">
-                {badgeRingText}
-              </textPath>
-            </text>
-          </motion.svg>
         </div>
       </div>
     </div>
