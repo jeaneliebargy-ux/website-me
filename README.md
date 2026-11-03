@@ -2,9 +2,9 @@
 
 **Site en ligne : https://jean-elie-bargy.vercel.app/**
 
-CV interactif bilingue (français / anglais) de Jean-Elie Bargy, chef de projet en marketing, vente et événementiel, avec l'IA en renfort. Trois ans de coordination de projets clients et de marque sur des marchés internationaux.
+CV interactif bilingue (français / anglais) de Jean-Elie Bargy, chef de projet événementiel, avec l'IA en renfort et un socle marketing et vente. Salons, formations et événements clients : trois ans de coordination de projets sur des marchés internationaux.
 
-*Interactive bilingual CV (French / English) of Jean-Elie Bargy, project manager in marketing, sales and events, with AI in support. Three years coordinating client and brand projects across international markets.*
+*Interactive bilingual CV (French / English) of Jean-Elie Bargy, event project manager with a marketing and sales background, with AI in support. Trade shows, training and client events: three years coordinating projects across international markets.*
 
 ## Ce que contient le site · What's inside
 
