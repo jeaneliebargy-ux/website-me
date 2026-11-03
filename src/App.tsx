@@ -29,7 +29,7 @@ const EMAIL = "jean.elie.bargy@gmail.com"
 
 // Icônes, dans le même ordre que les listes de content.ts
 const TRAIT_ICONS = [<Ear size={20} />, <Users size={20} />, <Heart size={20} />]
-const DOMAIN_ICONS = [<Megaphone size={26} />, <Handshake size={26} />, <CalendarDays size={26} />]
+const DOMAIN_ICONS = [<CalendarDays size={26} />, <Megaphone size={26} />, <Handshake size={26} />]
 const CAP_ICONS = [
   <Search size={22} />,
   <Sparkles size={22} />,
@@ -38,7 +38,7 @@ const CAP_ICONS = [
   <LayoutTemplate size={22} />,
   <Plug size={22} />,
 ]
-const GLANCE_ICONS = [<Megaphone size={22} />, <Handshake size={22} />, <CalendarDays size={22} />, <Sparkles size={22} />]
+const GLANCE_ICONS = [<CalendarDays size={22} />, <Megaphone size={22} />, <Handshake size={22} />, <Sparkles size={22} />]
 const TOOL_ICONS = [<FileSpreadsheet size={18} />, <Palette size={18} />, <MessagesSquare size={18} />]
 const LIFE_ICONS = [<Dumbbell size={18} />, <Music size={18} />, <ChefHat size={18} />]
 
@@ -214,6 +214,7 @@ export default function App() {
         lang={lang}
         onLangChange={setLang}
         langAria={t.langAria}
+        menuAria={t.menuAria}
       />
 
       <div className="glance">

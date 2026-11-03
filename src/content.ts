@@ -18,6 +18,7 @@ export type Content = {
   docTitle: string
   docDescription: string
   langAria: string
+  menuAria: string
   nav: { label: string; href: string }[]
   contactLabel: string
   hero: {
@@ -74,10 +75,11 @@ export type Content = {
 
 const fr: Content = {
   htmlLang: "fr",
-  docTitle: "Jean-Elie · Chef de projet, marketing, vente et événementiel",
+  docTitle: "Jean-Elie · Chef de projet événementiel",
   docDescription:
-    "CV interactif de Jean-Elie : chef de projet en marketing, vente et événementiel, avec l'IA en renfort. Trois ans de coordination de projets clients et de marque à l'international.",
+    "CV interactif de Jean-Elie : chef de projet événementiel, avec l'IA en renfort. Salons, formations et événements clients, avec un socle marketing et vente. Trois ans de coordination à l'international.",
   langAria: "Langue",
+  menuAria: "Menu",
   nav: [
     { label: "Profil", href: "#profil" },
     { label: "Parcours", href: "#parcours" },
@@ -87,35 +89,35 @@ const fr: Content = {
   ],
   contactLabel: "Contact",
   hero: {
-    badge: "Marketing · Vente · Événementiel",
+    badge: "Salons · Formations · Événements clients",
     titleTop: "Chef de projet",
-    titleMain: "avec l'IA",
-    titleBottom: "en renfort",
+    titleMain: "événementiel",
+    titleBottom: "avec l'IA en renfort",
     description:
-      "Trois ans de coordination de projets clients et de marque sur des marchés internationaux, et une dimension IA pour que les équipes gagnent du temps pour l'humain.",
+      "Salons internationaux, formations et événements clients : trois ans de coordination de projets, du cadrage à l'exécution sur place, avec un socle marketing et vente.",
     primary: "Voir mon parcours",
     secondary: "Ce que j'apporte",
   },
   glance: [
-    { title: "Marketing", text: "Briefs, contenus, plannings éditoriaux" },
-    { title: "Vente", text: "Suivi clients, offres et contrats" },
     { title: "Événementiel", text: "Salons, formations, logistique" },
+    { title: "Marketing", text: "Communiquer et donner de la visibilité" },
+    { title: "Vente", text: "Relation client, partenaires, contrats" },
     { title: "IA en renfort", text: "Gagner du temps, garder l'humain" },
   ],
   profile: {
     kicker: "Profil",
     title: "Qui *je suis*",
-    text: "Je coordonne des projets clients et de marque, de leur cadrage à leur exécution sur place, en France, Belgique, Luxembourg et Suisse. Basé à Montpellier, je suis **à la recherche d'un poste salarié** de chef de projet marketing, vente ou événementiel.",
+    text: "Je coordonne des projets clients et de marque, de leur cadrage à leur exécution sur place, en France, Belgique, Luxembourg et Suisse. Basé à Montpellier, je suis **à la recherche d'un poste salarié** de chef de projet événementiel, avec un socle marketing et vente.",
     traits: [
       { title: "Écoute et confiance.", text: "Des relations transparentes et profondes, rapidement." },
       { title: "Organiser et coordonner.", text: "Plusieurs projets et interlocuteurs en parallèle, en leader comme en équipier." },
       { title: "Créer de bons moments.", text: "Faire en sorte que chacun se sente vu et bien." },
     ],
     figures: [
+      { value: "5 à 6", label: "événements majeurs organisés" },
       { value: "3 ans", label: "de coordination de projets clients et de marque" },
       { value: "4 pays", label: "de territoire co-piloté" },
       { value: "100+", label: "clients B2B accompagnés" },
-      { value: "5 à 6", label: "événements majeurs organisés" },
     ],
   },
   journey: {
@@ -146,8 +148,8 @@ const fr: Content = {
         period: "Nov. 2023 – août 2025",
         place: "Tyrol du Sud, Italie",
         points: [
-          "Co-pilotage d'un territoire de 4 pays (France, Belgique, Luxembourg, Suisse) avec 2 partenaires locaux et une équipe terrain, pour une exécution de marque et une expérience client cohérentes.",
           "Organisation d'événements clients et de formations, représentation de la marque sur des salons internationaux : planning, logistique, exécution sur place.",
+          "Co-pilotage d'un territoire de 4 pays (France, Belgique, Luxembourg, Suisse) avec 2 partenaires locaux et une équipe terrain, pour une exécution de marque et une expérience client cohérentes.",
           "Point de contact entre ventes, marketing et support pour coordonner le déploiement de solutions techniques.",
           "Négociation et suivi de contrats : engagements et échéances.",
           "Relation avec plus de 100 clients B2B ; croissance visible du chiffre d'affaires grâce à une meilleure priorisation et coordination entre équipes.",
@@ -215,6 +217,15 @@ const fr: Content = {
     tablist: "Domaines",
     domains: [
       {
+        key: "Événementiel",
+        lead: "Un événement tient dans les détails : les suivre, sans s'y noyer.",
+        uses: [
+          "Rétroplannings, programmes et communications",
+          "Relances et retours des participants",
+          "Appuyé sur 5 à 6 événements majeurs déjà organisés",
+        ],
+      },
+      {
         key: "Marketing",
         lead: "Gagner du temps sur la préparation, garder la main sur le message.",
         uses: [
@@ -230,15 +241,6 @@ const fr: Content = {
           "Préparation des rendez-vous et des offres",
           "Suivi structuré des prospects et des contrats",
           "Moins de ressaisie entre les outils",
-        ],
-      },
-      {
-        key: "Événementiel",
-        lead: "Un événement tient dans les détails : les suivre, sans s'y noyer.",
-        uses: [
-          "Rétroplannings, programmes et communications",
-          "Relances et retours des participants",
-          "Appuyé sur 5 à 6 événements majeurs déjà organisés",
         ],
       },
     ],
@@ -291,17 +293,18 @@ const fr: Content = {
   contact: {
     kicker: "Contact",
     title: "Envie d'*échanger* ?",
-    text: "Je cherche à rejoindre une équipe comme chef de projet en marketing, vente ou événementiel, avec l'IA comme atout.",
+    text: "Je cherche à rejoindre une équipe comme chef de projet événementiel, avec un socle marketing et vente et l'IA comme atout.",
   },
   footer: "Jean-Elie · Portfolio en construction · 2026",
 }
 
 const en: Content = {
   htmlLang: "en",
-  docTitle: "Jean-Elie · Project manager, marketing, sales and events",
+  docTitle: "Jean-Elie · Event project manager",
   docDescription:
-    "Interactive CV of Jean-Elie: project manager in marketing, sales and events, with AI as a plus. Three years coordinating client and brand projects internationally.",
+    "Interactive CV of Jean-Elie: event project manager, with AI as a plus. Trade shows, training and client events, with a marketing and sales background. Three years coordinating projects internationally.",
   langAria: "Language",
+  menuAria: "Menu",
   nav: [
     { label: "Profile", href: "#profil" },
     { label: "Experience", href: "#parcours" },
@@ -311,35 +314,35 @@ const en: Content = {
   ],
   contactLabel: "Contact",
   hero: {
-    badge: "Marketing · Sales · Events",
+    badge: "Trade shows · Training · Client events",
     titleTop: "Project manager",
-    titleMain: "with AI",
-    titleBottom: "in support",
+    titleMain: "events",
+    titleBottom: "with AI in support",
     description:
-      "Three years coordinating client and brand projects across international markets, plus an AI dimension so teams save time for what is human.",
+      "International trade shows, training and client events: three years coordinating projects, from scoping to on-site execution, with a marketing and sales background.",
     primary: "See my experience",
     secondary: "What I bring",
   },
   glance: [
-    { title: "Marketing", text: "Briefs, content, editorial planning" },
-    { title: "Sales", text: "Client follow-up, offers and contracts" },
     { title: "Events", text: "Trade shows, training, logistics" },
+    { title: "Marketing", text: "Communicating and building visibility" },
+    { title: "Sales", text: "Client relations, partners, contracts" },
     { title: "AI in support", text: "Save time, keep the human touch" },
   ],
   profile: {
     kicker: "Profile",
     title: "Who *I am*",
-    text: "I coordinate client and brand projects, from scoping to on-site execution, across France, Belgium, Luxembourg and Switzerland. Based in Montpellier, I am **looking for a permanent position** as a project manager in marketing, sales or events.",
+    text: "I coordinate client and brand projects, from scoping to on-site execution, across France, Belgium, Luxembourg and Switzerland. Based in Montpellier, I am **looking for a permanent position** as an event project manager, with a marketing and sales background.",
     traits: [
       { title: "Listening and trust.", text: "Open, deep relationships, built quickly." },
       { title: "Organising and coordinating.", text: "Several projects and stakeholders in parallel, as a leader or as a team player." },
       { title: "Creating good moments.", text: "Making sure everyone feels seen and at ease." },
     ],
     figures: [
+      { value: "5 to 6", label: "major events organised" },
       { value: "3 yrs", label: "coordinating client and brand projects" },
       { value: "4 countries", label: "of territory co-managed" },
       { value: "100+", label: "B2B clients supported" },
-      { value: "5 to 6", label: "major events organised" },
     ],
   },
   journey: {
@@ -370,8 +373,8 @@ const en: Content = {
         period: "Nov. 2023 – Aug. 2025",
         place: "South Tyrol, Italy",
         points: [
-          "Co-managed a 4-country territory (France, Belgium, Luxembourg, Switzerland) with 2 local partners and a field sales team, ensuring consistent brand execution and client experience across markets.",
           "Organised client training events and represented the brand at international trade shows, overseeing planning, logistics and on-site execution.",
+          "Co-managed a 4-country territory (France, Belgium, Luxembourg, Switzerland) with 2 local partners and a field sales team, ensuring consistent brand execution and client experience across markets.",
           "Acted as the primary point of contact between sales, marketing and support teams to coordinate the rollout of technical solutions.",
           "Negotiated and tracked contracts, overseeing commitments and deadlines.",
           "Built relationships with over 100 B2B clients; contributed to visible revenue growth through better prioritisation and cross-team coordination.",
@@ -439,6 +442,15 @@ const en: Content = {
     tablist: "Fields",
     domains: [
       {
+        key: "Events",
+        lead: "An event lives in the details: follow them without drowning in them.",
+        uses: [
+          "Backward planning, programmes and communications",
+          "Follow-ups and participant feedback",
+          "Backed by 5 to 6 major events already organised",
+        ],
+      },
+      {
         key: "Marketing",
         lead: "Save time on preparation, keep control of the message.",
         uses: [
@@ -454,15 +466,6 @@ const en: Content = {
           "Preparing meetings and offers",
           "Structured follow-up of prospects and contracts",
           "Less re-entry between tools",
-        ],
-      },
-      {
-        key: "Events",
-        lead: "An event lives in the details: follow them without drowning in them.",
-        uses: [
-          "Backward planning, programmes and communications",
-          "Follow-ups and participant feedback",
-          "Backed by 5 to 6 major events already organised",
         ],
       },
     ],
@@ -515,7 +518,7 @@ const en: Content = {
   contact: {
     kicker: "Contact",
     title: "Want to *talk*?",
-    text: "I am looking to join a team as a project manager in marketing, sales or events, with AI as an asset.",
+    text: "I am looking to join a team as an event project manager, with a marketing and sales background and AI as an asset.",
   },
   footer: "Jean-Elie · Portfolio under construction · 2026",
 }
