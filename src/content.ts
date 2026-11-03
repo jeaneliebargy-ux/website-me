@@ -28,7 +28,6 @@ export type Content = {
     description: string
     primary: string
     secondary: string
-    ring: string
   }
   glance: { title: string; text: string }[]
   profile: {
@@ -96,7 +95,6 @@ const fr: Content = {
       "Trois ans de coordination de projets clients et de marque sur des marchés internationaux, et une dimension IA pour que les équipes gagnent du temps pour l'humain.",
     primary: "Voir mon parcours",
     secondary: "Ce que j'apporte",
-    ring: "Marketing • Vente • Événementiel • IA • Marketing • Vente • ",
   },
   glance: [
     { title: "Marketing", text: "Briefs, contenus, plannings éditoriaux" },
@@ -321,7 +319,6 @@ const en: Content = {
       "Three years coordinating client and brand projects across international markets, plus an AI dimension so teams save time for what is human.",
     primary: "See my experience",
     secondary: "What I bring",
-    ring: "Marketing • Sales • Events • AI • Marketing • Sales • ",
   },
   glance: [
     { title: "Marketing", text: "Briefs, content, editorial planning" },

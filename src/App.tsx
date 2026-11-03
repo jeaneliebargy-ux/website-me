@@ -211,7 +211,6 @@ export default function App() {
         description={t.hero.description}
         primary={{ label: t.hero.primary, href: "#parcours" }}
         secondary={{ label: t.hero.secondary, href: "#apport" }}
-        badgeRingText={t.hero.ring}
         lang={lang}
         onLangChange={setLang}
         langAria={t.langAria}
