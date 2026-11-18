@@ -1,18 +1,17 @@
 import { Fragment, useEffect, useState, type ReactNode } from "react"
 import { AnimatePresence, MotionConfig, motion } from "framer-motion"
 import {
+  BarChart3,
   Bot,
-  CalendarDays,
   ChefHat,
+  ClipboardCheck,
+  Database,
   Dumbbell,
   Ear,
   FileSpreadsheet,
   GraduationCap,
-  Handshake,
-  Heart,
   LayoutTemplate,
   Mail,
-  Megaphone,
   MessagesSquare,
   Music,
   Palette,
@@ -20,7 +19,8 @@ import {
   Search,
   ShieldCheck,
   Sparkles,
-  Users,
+  Wrench,
+  Workflow,
 } from "lucide-react"
 import ShaderHero from "@/components/ui/hero"
 import { content, type Content, type Job, type Lang } from "@/content"
@@ -28,8 +28,8 @@ import { content, type Content, type Job, type Lang } from "@/content"
 const EMAIL = "jean.elie.bargy@gmail.com"
 
 // Icônes, dans le même ordre que les listes de content.ts
-const TRAIT_ICONS = [<Ear size={20} />, <Users size={20} />, <Heart size={20} />]
-const DOMAIN_ICONS = [<CalendarDays size={26} />, <Megaphone size={26} />, <Handshake size={26} />]
+const TRAIT_ICONS = [<Ear size={20} />, <Sparkles size={20} />, <ClipboardCheck size={20} />]
+const DOMAIN_ICONS = [<GraduationCap size={26} />, <BarChart3 size={26} />, <Workflow size={26} />]
 const CAP_ICONS = [
   <Search size={22} />,
   <Sparkles size={22} />,
@@ -38,8 +38,8 @@ const CAP_ICONS = [
   <LayoutTemplate size={22} />,
   <Plug size={22} />,
 ]
-const GLANCE_ICONS = [<CalendarDays size={22} />, <Megaphone size={22} />, <Handshake size={22} />, <Sparkles size={22} />]
-const TOOL_ICONS = [<FileSpreadsheet size={18} />, <Palette size={18} />, <MessagesSquare size={18} />]
+const GLANCE_ICONS = [<Wrench size={22} />, <GraduationCap size={22} />, <Database size={22} />, <Sparkles size={22} />]
+const TOOL_ICONS = [<FileSpreadsheet size={18} />, <Database size={18} />, <MessagesSquare size={18} />, <Palette size={18} />]
 const LIFE_ICONS = [<Dumbbell size={18} />, <Music size={18} />, <ChefHat size={18} />]
 
 // "Qui *je suis*" -> "Qui " + <em>je suis</em>
@@ -270,8 +270,25 @@ export default function App() {
           </div>
         </section>
 
+        {/* MÉMOIRE */}
+        <section id="memoire" className="band">
+          <div className="inner">
+            <Heading kicker={t.thesis.kicker} title={t.thesis.title} />
+            <Reveal delay={0.1}>
+              <div className="sheet">
+                <div className="sheet-head">
+                  <span className="sheet-badge">{t.thesis.badge}</span>
+                  <h3>{t.thesis.headline}</h3>
+                  <p>{t.thesis.text}</p>
+                </div>
+                <p className="note">{t.thesis.note}</p>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
         {/* COMPÉTENCES */}
-        <section id="competences" className="band">
+        <section id="competences" className="band alt">
           <div className="inner">
             <Heading kicker={t.skills.kicker} title={t.skills.title} />
             <div className="bento">
