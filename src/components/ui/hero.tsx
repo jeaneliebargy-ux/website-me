@@ -11,13 +11,15 @@ type ShaderHeroProps = {
   nav: NavItem[]
   contactHref: string
   contactLabel: string
-  badge: string
+  badge?: string
   titleTop: string
   titleMain: string
-  titleBottom: string
+  titleBottom?: string
   description: string
   primary: NavItem
   secondary: NavItem
+  photo?: string
+  photoAlt?: string
   lang: "fr" | "en"
   onLangChange: (lang: "fr" | "en") => void
   langAria: string
@@ -41,6 +43,8 @@ export default function ShaderHero({
   description,
   primary,
   secondary,
+  photo,
+  photoAlt,
   lang,
   onLangChange,
   langAria,
@@ -189,8 +193,21 @@ export default function ShaderHero({
         )}
       </header>
 
+      {photo && (
+        <motion.div
+          className="hero-photo"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+        >
+          <img src={photo} alt={photoAlt ?? ""} />
+        </motion.div>
+      )}
+
       <div className="relative z-20 mt-auto px-4 pb-12 pt-32 md:px-8 md:pb-16">
-        <div className="max-w-3xl text-left">
+        <div className="flex flex-col gap-8">
+        <div className="max-w-3xl text-left md:max-w-[34rem] lg:max-w-[38rem]">
+          {badge && (
           <motion.div
             className="relative mb-6 inline-flex items-center rounded-full border border-white/15 bg-white/5 px-4 py-2 backdrop-blur-sm"
             style={{ filter: "url(#glass-effect)" }}
@@ -201,9 +218,10 @@ export default function ShaderHero({
             <div className="absolute left-1 right-1 top-0 h-px rounded-full bg-gradient-to-r from-transparent via-[#c9b26b]/50 to-transparent" />
             <span className="relative z-10 text-sm font-medium tracking-wide text-white/90">{badge}</span>
           </motion.div>
+          )}
 
           <motion.h1
-            className="mb-6 text-5xl font-bold leading-none tracking-tight text-white md:text-7xl lg:text-8xl"
+            className="mb-6 text-4xl font-bold leading-none tracking-tight text-white md:text-6xl lg:text-7xl"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
@@ -224,7 +242,7 @@ export default function ShaderHero({
               {titleTop}
             </motion.span>
             <span className="block font-black text-white drop-shadow-2xl">{titleMain}</span>
-            <span className="block font-light italic text-white/80">{titleBottom}</span>
+            {titleBottom && <span className="block font-light italic text-white/80">{titleBottom}</span>}
           </motion.h1>
 
           <motion.p
@@ -259,6 +277,7 @@ export default function ShaderHero({
               {primary.label}
             </motion.a>
           </motion.div>
+        </div>
         </div>
       </div>
     </div>
