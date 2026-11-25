@@ -2,7 +2,6 @@ import { Fragment, useEffect, useState, type ReactNode } from "react"
 import { AnimatePresence, MotionConfig, motion } from "framer-motion"
 import {
   BarChart3,
-  Bot,
   ChefHat,
   ClipboardCheck,
   Database,
@@ -10,16 +9,11 @@ import {
   Ear,
   FileSpreadsheet,
   GraduationCap,
-  LayoutTemplate,
   Mail,
   MessagesSquare,
   Music,
   Palette,
-  Plug,
-  Search,
-  ShieldCheck,
   Sparkles,
-  Wrench,
   Workflow,
 } from "lucide-react"
 import ShaderHero from "@/components/ui/hero"
@@ -30,15 +24,6 @@ const EMAIL = "jean.elie.bargy@gmail.com"
 // Icônes, dans le même ordre que les listes de content.ts
 const TRAIT_ICONS = [<Ear size={20} />, <Sparkles size={20} />, <ClipboardCheck size={20} />]
 const DOMAIN_ICONS = [<GraduationCap size={26} />, <BarChart3 size={26} />, <Workflow size={26} />]
-const CAP_ICONS = [
-  <Search size={22} />,
-  <Sparkles size={22} />,
-  <Bot size={22} />,
-  <ShieldCheck size={22} />,
-  <LayoutTemplate size={22} />,
-  <Plug size={22} />,
-]
-const GLANCE_ICONS = [<Wrench size={22} />, <GraduationCap size={22} />, <Database size={22} />, <Sparkles size={22} />]
 const TOOL_ICONS = [<FileSpreadsheet size={18} />, <Database size={18} />, <MessagesSquare size={18} />, <Palette size={18} />]
 const LIFE_ICONS = [<Dumbbell size={18} />, <Music size={18} />, <ChefHat size={18} />]
 
@@ -210,55 +195,16 @@ export default function App() {
         titleBottom={t.hero.titleBottom}
         description={t.hero.description}
         primary={{ label: t.hero.primary, href: "#parcours" }}
-        secondary={{ label: t.hero.secondary, href: "#apport" }}
+        secondary={{ label: t.hero.secondary, href: "#contact" }}
+        photo="/photo-jean-elie.jpg"
+        photoAlt="Jean-Elie Bargy"
         lang={lang}
         onLangChange={setLang}
         langAria={t.langAria}
         menuAria={t.menuAria}
       />
 
-      <div className="glance">
-        {t.glance.map((g, i) => (
-          <Reveal key={g.title} delay={i * 0.08}>
-            <div className="glance-card">
-              <span className="glance-icon" aria-hidden="true">{GLANCE_ICONS[i]}</span>
-              <div>
-                <strong>{g.title}</strong>
-                <span>{g.text}</span>
-              </div>
-            </div>
-          </Reveal>
-        ))}
-      </div>
-
       <main>
-        {/* PROFIL */}
-        <section id="profil" className="band">
-          <div className="inner">
-            <Heading kicker={t.profile.kicker} title={t.profile.title} />
-            <div className="profile">
-              <Reveal>
-                <p className="profile-text">{bold(t.profile.text)}</p>
-                <ul className="traits">
-                  {t.profile.traits.map((tr, i) => (
-                    <li key={tr.title}>
-                      {TRAIT_ICONS[i]}
-                      <span><strong>{tr.title}</strong> {tr.text}</span>
-                    </li>
-                  ))}
-                </ul>
-              </Reveal>
-              <Reveal delay={0.1}>
-                <div className="figures">
-                  {t.profile.figures.map((f) => (
-                    <div key={f.value}><strong>{f.value}</strong><span>{f.label}</span></div>
-                  ))}
-                </div>
-              </Reveal>
-            </div>
-          </div>
-        </section>
-
         {/* PARCOURS */}
         <section id="parcours" className="band alt">
           <div className="blob" style={{ top: -120, left: -100 }} />
@@ -270,8 +216,22 @@ export default function App() {
           </div>
         </section>
 
+        {/* CHIFFRES CLÉS */}
+        <section id="chiffres" className="band">
+          <div className="inner">
+            <Heading kicker={t.keyFigures.kicker} title={t.keyFigures.title} />
+            <Reveal delay={0.1}>
+              <div className="figures">
+                {t.profile.figures.map((f) => (
+                  <div key={f.value}><strong>{f.value}</strong><span>{f.label}</span></div>
+                ))}
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
         {/* MÉMOIRE */}
-        <section id="memoire" className="band">
+        <section id="memoire" className="band alt">
           <div className="inner">
             <Heading kicker={t.thesis.kicker} title={t.thesis.title} />
             <Reveal delay={0.1}>
@@ -283,6 +243,24 @@ export default function App() {
                 </div>
                 <p className="note">{t.thesis.note}</p>
               </div>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* PROFIL */}
+        <section id="profil" className="band">
+          <div className="inner">
+            <Heading kicker={t.profile.kicker} title={t.profile.title} />
+            <Reveal>
+              <p className="profile-text">{bold(t.profile.text)}</p>
+              <ul className="traits">
+                {t.profile.traits.map((tr, i) => (
+                  <li key={tr.title}>
+                    {TRAIT_ICONS[i]}
+                    <span><strong>{tr.title}</strong> {tr.text}</span>
+                  </li>
+                ))}
+              </ul>
             </Reveal>
           </div>
         </section>
@@ -351,96 +329,13 @@ export default function App() {
           </div>
         </section>
 
-        {/* IA : onglets par domaine */}
+        {/* IA : une seule section, trois exemples réels */}
         <section id="apport" className="band dark">
           <div className="blob" style={{ top: -120, right: -100, background: "var(--olive-bright)" }} />
           <div className="inner">
             <Heading kicker={t.ai.kicker} title={t.ai.title} intro={t.ai.intro} />
             <Reveal delay={0.1}>
               <Domains domains={t.ai.domains} tablist={t.ai.tablist} />
-            </Reveal>
-          </div>
-        </section>
-
-        {/* CLAUDE */}
-        <section id="claude" className="band">
-          <div className="inner">
-            <Heading kicker={t.claude.kicker} title={t.claude.title} intro={t.claude.intro} />
-            <div className="caps">
-              {t.claude.caps.map((c, i) => (
-                <Reveal key={c.title} delay={(i % 2) * 0.08}>
-                  <article className="cap">
-                    <span className="caps-num">{String(i + 1).padStart(2, "0")}</span>
-                    <div>
-                      <h3>{CAP_ICONS[i]}{c.title}</h3>
-                      <p>{c.text}</p>
-                    </div>
-                  </article>
-                </Reveal>
-              ))}
-            </div>
-            <Reveal><p className="note">{t.claude.soon}</p></Reveal>
-          </div>
-        </section>
-
-        {/* POURQUOI */}
-        <section id="pourquoi" className="band alt">
-          <div className="blob" style={{ bottom: -140, left: "30%" }} />
-          <div className="inner">
-            <Heading kicker={t.why.kicker} title={t.why.title} />
-            <div className="why">
-              <Reveal>
-                <blockquote>{t.why.quote}</blockquote>
-              </Reveal>
-              <Reveal delay={0.1}>
-                <p>{t.why.p1}</p>
-                <p>{t.why.p2}</p>
-              </Reveal>
-            </div>
-          </div>
-        </section>
-
-        {/* MÉTHODE */}
-        <section id="demarche" className="band">
-          <div className="inner">
-            <Heading kicker={t.method.kicker} title={t.method.title} intro={t.method.intro} />
-            <ol className="flow">
-              {t.method.steps.map(([title, text], i) => (
-                <motion.li
-                  key={title}
-                  initial={{ opacity: 0, y: 28 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-60px" }}
-                  transition={{ duration: 0.6, delay: i * 0.1, ease: "easeOut" }}
-                >
-                  <span className="flow-dot">{i + 1}</span>
-                  <strong>{title}</strong>
-                  <span>{text}</span>
-                </motion.li>
-              ))}
-            </ol>
-          </div>
-        </section>
-
-        {/* EXEMPLE */}
-        <section id="exemple" className="band alt">
-          <div className="blob" style={{ top: -120, right: -80 }} />
-          <div className="inner">
-            <Heading kicker={t.example.kicker} title={t.example.title} />
-            <Reveal delay={0.1}>
-              <div className="sheet">
-                <div className="sheet-head">
-                  <span className="sheet-badge">{t.example.badge}</span>
-                  <h3>{t.example.headline}</h3>
-                  <p>{t.example.text}</p>
-                </div>
-                <div className="sheet-metrics">
-                  {t.example.metrics.map((m) => (
-                    <div key={m.value}><strong>{m.value}</strong><span>{m.label}</span></div>
-                  ))}
-                </div>
-                <p className="note">{t.example.note}</p>
-              </div>
             </Reveal>
           </div>
         </section>

@@ -39,6 +39,7 @@ export type Content = {
     figures: { value: string; label: string }[]
   }
   journey: { kicker: string; title: string; intro: string; tablist: string; jobs: Job[] }
+  keyFigures: { kicker: string; title: string }
   thesis: {
     kicker: string
     title: string
@@ -89,23 +90,24 @@ const fr: Content = {
   langAria: "Langue",
   menuAria: "Menu",
   nav: [
-    { label: "Profil", href: "#profil" },
     { label: "Parcours", href: "#parcours" },
+    { label: "Chiffres", href: "#chiffres" },
     { label: "Mémoire", href: "#memoire" },
+    { label: "Profil", href: "#profil" },
     { label: "Compétences", href: "#competences" },
     { label: "IA", href: "#apport" },
-    { label: "Exemple", href: "#exemple" },
+    { label: "Contact", href: "#contact" },
   ],
   contactLabel: "Contact",
   hero: {
-    badge: "Outils d'aide à la vente · Enablement · CRM",
-    titleTop: "Sales Operations",
-    titleMain: "& Enablement",
-    titleBottom: "des outils qui aident à vendre, conçus avec les commerciaux",
+    badge: "Poste salarié · Lyon ou Suisse romande",
+    titleTop: "Jean-Elie Bargy",
+    titleMain: "Sales Operations & Enablement",
+    titleBottom: "",
     description:
-      "Outils d'aide à la vente, analyse du terrain, formation et argumentaires. Trois ans d'expérience, stages inclus, et un mémoire de Master 2 sur le sujet.",
+      "J'ai construit des outils d'aide à la vente et j'ai vendu moi-même. Je cherche un poste de Sales Operations ou Sales Enablement à Lyon ou en Suisse romande.",
     primary: "Voir mon parcours",
-    secondary: "Ce que j'apporte",
+    secondary: "Me contacter",
   },
   glance: [
     { title: "Outils d'aide à la vente", text: "Conçus pour le terrain" },
@@ -116,14 +118,14 @@ const fr: Content = {
   profile: {
     kicker: "Profil",
     title: "Qui *je suis*",
-    text: "J'aide les équipes commerciales à vendre plus facilement : les bons outils, les bonnes informations, les bons arguments, au bon moment. J'ai travaillé côté siège (innocent), côté terrain et partenaires (Zirkonzahn) et côté vente (LegalPlace), ce qui me permet de concevoir des outils que les commerciaux utilisent vraiment. Basé à Montpellier, je cherche un **poste salarié** de Sales Operations ou Sales Enablement, à Lyon ou en Suisse romande.",
+    text: "J'aide les équipes commerciales à vendre plus facilement : les bons outils, les bonnes informations, les bons arguments, au bon moment. J'ai travaillé côté siège (innocent), côté terrain et partenaires (Zirkonzahn) et côté vente (LegalPlace), ce qui m'aide à comprendre les contraintes de ceux qui utilisent ces outils. Basé à Montpellier, je cherche un **poste salarié** de Sales Operations ou Sales Enablement, à Lyon ou en Suisse romande.",
     traits: [
       { title: "Écouter le terrain.", text: "Comprendre comment les commerciaux travaillent avant de leur proposer quoi que ce soit." },
       { title: "Simplifier.", text: "Un outil utile est un outil que l'on ouvre sans y penser." },
       { title: "Livrer du concret.", text: "Des fichiers, des argumentaires, des process, pas seulement des recommandations." },
     ],
     figures: [
-      { value: "1er sur 13", label: "vendeur d'un produit de formation deux mois consécutifs (LegalPlace)" },
+      { value: "1er sur 13", label: "de mes ventes d'un nouveau produit de formation, deux mois consécutifs (LegalPlace)" },
       { value: "Master 2", label: "mémoire sur les outils d'aide à la vente" },
       { value: "4 pays", label: "de territoire couvert (France, Belgique, Luxembourg, Suisse)" },
       { value: "100+", label: "clients B2B suivis" },
@@ -144,7 +146,7 @@ const fr: Content = {
         place: "Montpellier",
         points: [
           "Vente et conseil auprès des entrepreneurs, avec Salesforce et suivi du panier moyen.",
-          "1er sur 13 conseillers à vendre un produit de formation pour entrepreneurs (formations éligibles au CPF), deux mois de suite.",
+          "Mes ventes personnelles : 1er sur 13 conseillers de l'équipe, deux mois de suite, sur un nouveau produit de formation pour entrepreneurs (éligible au CPF).",
           "Masterclass d'argumentaire pour lancer ce produit.",
           "Usage des données de l'équipe pour comparer les pratiques.",
         ],
@@ -197,7 +199,7 @@ const fr: Content = {
     title: "Mon *mémoire*",
     badge: "Master 2 · Montpellier Management · 2022-2023",
     headline: "Un mémoire de Master 2 sur les outils d'aide à la vente, né du terrain",
-    text: "Réalisé pendant mon stage d'animation des ventes. Ses conclusions ont été appréciées par la direction et le management, et rejoignent celles d'une société de conseil venue un an avant moi.",
+    text: "Réalisé pendant mon stage d'animation des ventes. L'équipe m'a indiqué que mes conclusions rejoignaient celles d'un audit externe réalisé un an plus tôt.",
     note: "Résumé général : les détails se partagent en entretien.",
   },
   skills: {
@@ -206,7 +208,7 @@ const fr: Content = {
     studiesTitle: "Formation",
     studies: [
       { years: "2021 – 2023", title: "Master 2 Management et Business Development", school: "Montpellier Management", text: "Stratégie d'entreprise, développement de marchés, gestion opérationnelle." },
-      { years: "2020 – 2021", title: "Licence Management stratégique", school: "Montpellier Management", text: "Analyse stratégique, traitement de données, gestion financière." },
+      { years: "2020 – 2021", title: "Licence Management Stratégie", school: "Montpellier Management", text: "Analyse stratégique, traitement de données, gestion financière." },
       { years: "2018 – 2020", title: "Classe préparatoire CPGE", school: "Lycée Jean-Mermoz · ENS Paris-Saclay D2", text: "Économie, finance, mathématiques appliquées." },
     ],
     languagesTitle: "Langues",
@@ -228,32 +230,23 @@ const fr: Content = {
   ai: {
     kicker: "L'IA, mon plus",
     title: "L'IA au service des *équipes commerciales*",
-    intro: "J'automatise le répétitif pour que les commerciaux gardent leur temps pour leurs clients.",
+    intro: "J'automatise le répétitif pour que les commerciaux gardent leur temps pour leurs clients. Depuis septembre 2026, je me forme à l'IA avec un parcours en ligne (vidéos) et je m'exerce avec Claude.",
     tablist: "Domaines",
     domains: [
       {
         key: "Enablement",
         lead: "Mettre les bonnes informations entre les mains des commerciaux.",
-        uses: [
-          "Mise à jour de documents de référence",
-          "Relecture critique d'un livrable avant diffusion, avec un agent relecteur",
-        ],
+        uses: ["Relecture critique d'un livrable avant diffusion, avec un agent relecteur"],
       },
       {
         key: "Reporting",
         lead: "Moins de saisie, plus de temps pour comprendre le terrain.",
-        uses: [
-          "Comptes rendus automatisés",
-          "Relances automatisées",
-        ],
+        uses: ["Comptes rendus et relances automatisés"],
       },
       {
         key: "Process",
         lead: "Repérer ce qui fait perdre du temps, puis le simplifier.",
-        uses: [
-          "Audit d'un processus pour repérer où une équipe perd du temps",
-          "Rétroplannings préparés plus vite",
-        ],
+        uses: ["Audit d'un processus et rétroplannings préparés plus vite"],
       },
     ],
   },
@@ -307,6 +300,7 @@ const fr: Content = {
     title: "Envie d'*échanger* ?",
     text: "Je cherche à rejoindre une équipe commerciale comme Sales Operations ou Sales Enablement, à Lyon ou en Suisse romande, avec le terrain, les outils et l'IA comme leviers.",
   },
+  keyFigures: { kicker: "Chiffres clés", title: "En *chiffres*" },
   footer: "Jean-Elie · Portfolio en construction · 2026",
 }
 
@@ -318,23 +312,24 @@ const en: Content = {
   langAria: "Language",
   menuAria: "Menu",
   nav: [
-    { label: "Profile", href: "#profil" },
     { label: "Experience", href: "#parcours" },
+    { label: "Figures", href: "#chiffres" },
     { label: "Thesis", href: "#memoire" },
+    { label: "Profile", href: "#profil" },
     { label: "Skills", href: "#competences" },
     { label: "AI", href: "#apport" },
-    { label: "Example", href: "#exemple" },
+    { label: "Contact", href: "#contact" },
   ],
   contactLabel: "Contact",
   hero: {
-    badge: "Sales enablement tools · Enablement · CRM",
-    titleTop: "Sales Operations",
-    titleMain: "& Enablement",
-    titleBottom: "tools that help sell, built with the sales force",
+    badge: "Permanent position · Lyon or French-speaking Switzerland",
+    titleTop: "Jean-Elie Bargy",
+    titleMain: "Sales Operations & Enablement",
+    titleBottom: "",
     description:
-      "Sales enablement tools, field analysis, training and sales pitches. Three years of experience, internships included, and a Master's thesis on the subject.",
+      "I built sales enablement tools, and I have also done the selling myself. I am looking for a Sales Operations or Sales Enablement position in Lyon or French-speaking Switzerland.",
     primary: "See my experience",
-    secondary: "What I bring",
+    secondary: "Contact me",
   },
   glance: [
     { title: "Sales enablement tools", text: "Built for the field" },
@@ -345,14 +340,14 @@ const en: Content = {
   profile: {
     kicker: "Profile",
     title: "Who *I am*",
-    text: "I help sales teams sell more easily: the right tools, the right information, the right arguments, at the right time. I have worked at head office (innocent), in the field with partners (Zirkonzahn) and in sales (LegalPlace), which helps me build tools that salespeople actually use. Based in Montpellier, I am **looking for a permanent position** in Sales Operations or Sales Enablement, in Lyon or French-speaking Switzerland.",
+    text: "I help sales teams sell more easily: the right tools, the right information, the right arguments, at the right time. I have worked at head office (innocent), in the field with partners (Zirkonzahn) and in sales (LegalPlace), which helps me understand the constraints of the people who use these tools. Based in Montpellier, I am **looking for a permanent position** in Sales Operations or Sales Enablement, in Lyon or French-speaking Switzerland.",
     traits: [
       { title: "Listening to the field.", text: "Understanding how salespeople work before suggesting anything." },
       { title: "Simplifying.", text: "A useful tool is one you open without thinking about it." },
       { title: "Delivering something concrete.", text: "Files, sales pitches, processes, not just recommendations." },
     ],
     figures: [
-      { value: "1st of 13", label: "to sell a training product two months in a row (LegalPlace)" },
+      { value: "1st of 13", label: "in sales of a new training product, two months in a row (LegalPlace)" },
       { value: "Master 2", label: "thesis on sales enablement tools" },
       { value: "4 countries", label: "of territory covered (France, Belgium, Luxembourg, Switzerland)" },
       { value: "100+", label: "B2B clients followed" },
@@ -373,7 +368,7 @@ const en: Content = {
         place: "Montpellier, France",
         points: [
           "Sales and advice for entrepreneurs, using Salesforce and tracking the average basket.",
-          "1st out of 13 advisers to sell a training product for entrepreneurs (CPF-eligible courses), two months in a row.",
+          "My personal sales: 1st out of 13 advisers in the team, two months in a row, on a new training product for entrepreneurs (CPF-eligible).",
           "Ran a pitch masterclass to launch this product.",
           "Used team data to compare practices.",
         ],
@@ -426,7 +421,7 @@ const en: Content = {
     title: "My *thesis*",
     badge: "Master 2 · Montpellier Management · 2022-2023",
     headline: "A Master's thesis on sales enablement tools, grounded in the field",
-    text: "Carried out during my sales activation internship. Its findings were well received by senior management and the sales managers, and matched those of a consulting firm that had worked on the same topic a year earlier.",
+    text: "Carried out during my sales activation internship. The team told me my findings matched those of an external audit carried out a year earlier.",
     note: "General summary: details can be shared in an interview.",
   },
   skills: {
@@ -435,7 +430,7 @@ const en: Content = {
     studiesTitle: "Education",
     studies: [
       { years: "2021 – 2023", title: "Master 2 in Management and Business Development", school: "Montpellier Management", text: "Business strategy, market development, operational management." },
-      { years: "2020 – 2021", title: "Bachelor's Degree in Strategic Management", school: "Montpellier Management", text: "Strategic analysis, data processing, financial management." },
+      { years: "2020 – 2021", title: "Bachelor's Degree in Management Stratégie", school: "Montpellier Management", text: "Strategic analysis, data processing, financial management." },
       { years: "2018 – 2020", title: "Preparatory Classes (CPGE)", school: "Lycée Jean-Mermoz · ENS Paris-Saclay D2", text: "Economics, finance, applied mathematics." },
     ],
     languagesTitle: "Languages",
@@ -457,32 +452,23 @@ const en: Content = {
   ai: {
     kicker: "AI, my plus",
     title: "AI to support *sales teams*",
-    intro: "I automate the repetitive so salespeople keep their time for their customers.",
+    intro: "I automate the repetitive so salespeople keep their time for their customers. Since September 2026, I have been training in AI with an online video course and practising with Claude.",
     tablist: "Fields",
     domains: [
       {
         key: "Enablement",
         lead: "Put the right information in salespeople's hands.",
-        uses: [
-          "Updating reference documents",
-          "Critical review of a deliverable before it goes out, with a reviewer agent",
-        ],
+        uses: ["Critical review of a deliverable before it goes out, with a reviewer agent"],
       },
       {
         key: "Reporting",
         lead: "Less data entry, more time to understand the field.",
-        uses: [
-          "Automated meeting reports",
-          "Automated follow-ups",
-        ],
+        uses: ["Automated meeting reports and follow-ups"],
       },
       {
         key: "Process",
         lead: "Spot what wastes time, then simplify it.",
-        uses: [
-          "Auditing a process to see where a team loses time",
-          "Backward planning prepared faster",
-        ],
+        uses: ["Auditing a process and backward planning prepared faster"],
       },
     ],
   },
@@ -536,6 +522,7 @@ const en: Content = {
     title: "Want to *talk*?",
     text: "I am looking to join a sales team in Sales Operations or Sales Enablement, in Lyon or French-speaking Switzerland, with the field, tools and AI as levers.",
   },
+  keyFigures: { kicker: "Key figures", title: "In *figures*" },
   footer: "Jean-Elie · Portfolio under construction · 2026",
 }
 
